@@ -8,6 +8,8 @@ namespace AutoBackUpDb
 {
     static class Program
     {
+        public static Form1 frm;
+
         /// <summary>
         /// Punto di ingresso principale dell'applicazione.
         /// </summary>
@@ -16,7 +18,13 @@ namespace AutoBackUpDb
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            using (Form1 mainForm = new Form1())
+            {
+                frm = mainForm;
+                Application.Run(frm);
+            }
+            frm = null;
         }
     }
 }

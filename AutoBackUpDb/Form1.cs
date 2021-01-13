@@ -10,13 +10,16 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Win32;
+using System.Threading;
 
 namespace AutoBackUpDb
 {
     public partial class Form1 : Form
-    {
+    {        
         public Form1()
         {
+
             InitializeComponent();
         }
 
@@ -27,7 +30,24 @@ namespace AutoBackUpDb
             foreach (DbConfig db in data)
             {
                 DataBaseController dbc = new DataBaseController(db);
+                dbc.startTimeDelay();
+
+                Task.Factory.StartNew(dbc.startTimeDelay());
             }
+
+            label1.Text = "Eseguito";
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //IList<DbConfig> data = Controller.ReadConfig();
+
+            //foreach (DbConfig db in data)
+            //{
+            //    DataBaseController dbc = new DataBaseController(db);
+            //}
+
+            //label1.Text = "Eseguito";
         }
     }
 

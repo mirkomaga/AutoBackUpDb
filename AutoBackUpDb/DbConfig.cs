@@ -3,9 +3,9 @@
     internal class DbConfig
     {
         public string ip { get; set; }
-        public string Name { get; set; }
-        public string nomeDb { get; set; }
-        public string utente { get; set; }
+        public string name { get; set; }
+        public string user { get; set; }
         public string password { get; set; }
+        public int delay{ get; set; }
     }
 }

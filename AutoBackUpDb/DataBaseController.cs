@@ -1,5 +1,8 @@
-﻿using MySql.Data.MySqlClient;
-using Newtonsoft.Json.Linq;
+﻿using Microsoft.Win32;
+using MySql.Data.MySqlClient;
+using System;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AutoBackUpDb
 {
@@ -9,22 +12,52 @@ namespace AutoBackUpDb
         private string user;
         private string password;
         private string dbName;
-        
+        private string nomeFile;
+        private string path;
+        private int delay;
+
         public DataBaseController(DbConfig c)
         {
-            //ip = c.ip;
-            //user = c.name;
-            //password = c.user;
-            //dbName = c.password;
+            ip = c.ip;
+            user = c.user;
+            password = c.password;
+            dbName = c.name;
+            path = "X:\\mirko\\bkpDb\\" + dbName;
+            delay = c.delay * 60000;
 
             // QUI CICLO PER TEMPO IL BACKUP
 
+            DateTime saveNow = DateTime.Now;
+
+            nomeFile = dbName + saveNow.ToString().Replace("/", "_").Replace(" ", "_").Replace(":", "_")+".sql";
+
+            //SetStartup();
+
+            //startTimeDelay();
+
+        }
+
+        public async Task startTimeDelay()
+        {
+
+            Console.WriteLine("Eseguo Back-up: " + DateTime.Now.ToString());
+
+            Program.frm.label2.Text = DateTime.Now.ToString();
+            Program.frm.Refresh();
+
+            Backup();
+
+            await Task.Delay(this.delay);
+
+            startTimeDelay();
         }
 
         private void Backup()
         {
-            string constring = "server="+this.ip+";user="+ this.user +";pwd=qwerty;database="+ this.dbName +";";
-            string file = "C:\\backup.sql";
+            string constring = "server= " + this.ip + "; database =" + this.dbName + "; username= " + this.user + "; password="+this.password+";";
+            
+            string file = this.path+"\\"+this.nomeFile;
+            
             using (MySqlConnection conn = new MySqlConnection(constring))
             {
                 using (MySqlCommand cmd = new MySqlCommand())
@@ -39,6 +72,7 @@ namespace AutoBackUpDb
                 }
             }
         }
+
         private void Restore()
         {
             string constring = "server=localhost;user=root;pwd=qwerty;database=test;";
@@ -56,6 +90,14 @@ namespace AutoBackUpDb
                     }
                 }
             }
+        }
+
+
+        private void SetStartup()
+        {
+            RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+
+            rk.SetValue(Application.ProductName, Application.ExecutablePath);
         }
     }
 }
