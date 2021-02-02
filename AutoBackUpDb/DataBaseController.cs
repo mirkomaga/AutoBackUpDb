@@ -12,7 +12,7 @@ namespace AutoBackUpDb
         private string user;
         private string password;
         private string dbName;
-        private string nomeFile;
+        public string nomeFile;
         private string path;
         private int delay;
 
@@ -30,11 +30,6 @@ namespace AutoBackUpDb
             DateTime saveNow = DateTime.Now;
 
             nomeFile = dbName + saveNow.ToString().Replace("/", "_").Replace(" ", "_").Replace(":", "_")+".sql";
-
-            //SetStartup();
-
-            //startTimeDelay();
-
         }
 
         public async Task startTimeDelay()
@@ -42,17 +37,17 @@ namespace AutoBackUpDb
 
             Console.WriteLine("Eseguo Back-up: " + DateTime.Now.ToString());
 
-            Program.frm.label2.Text = DateTime.Now.ToString();
-            Program.frm.Refresh();
+            //Program.frm.label2.Text = DateTime.Now.ToString();
+            //Program.frm.Refresh();
 
             Backup();
 
             await Task.Delay(this.delay);
 
-            startTimeDelay();
+            //startTimeDelay();
         }
 
-        private void Backup()
+        public void Backup()
         {
             string constring = "server= " + this.ip + "; database =" + this.dbName + "; username= " + this.user + "; password="+this.password+";";
             
@@ -91,7 +86,6 @@ namespace AutoBackUpDb
                 }
             }
         }
-
 
         private void SetStartup()
         {

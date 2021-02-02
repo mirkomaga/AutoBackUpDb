@@ -6,25 +6,40 @@ using System.Windows.Forms;
 
 namespace AutoBackUpDb
 {
-    static class Program
+    public static class Program
     {
-        public static Form1 frm;
+        //public static AutoBKForm frm;
+        //public static DataBaseController dbc;
 
-        /// <summary>
-        /// Punto di ingresso principale dell'applicazione.
-        /// </summary>
-        [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
 
-            using (Form1 mainForm = new Form1())
+            //Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+
+            //using (AutoBKForm mainForm = new AutoBKForm())
+            //{
+            //    frm = mainForm;
+            //    Application.Run(frm);
+            //}
+
+            //frm = null;
+        }
+
+        public static IList<string> eseguoBackUp()
+        {
+            IList<DbConfig> data = Controller.ReadConfig();
+
+            IList<string> nomeBK = new List<string>();
+
+            foreach (DbConfig db in data)
             {
-                frm = mainForm;
-                Application.Run(frm);
+                DataBaseController dbc = new DataBaseController(db);
+                nomeBK.Add(dbc.nomeFile);
+                dbc.Backup();
             }
-            frm = null;
+
+            return nomeBK;
         }
     }
 }

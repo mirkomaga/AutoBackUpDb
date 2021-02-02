@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{00488992-AF72-4C56-901A-16EFE38220ED}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>AutoBackUpDb</RootNamespace>
     <AssemblyName>AutoBackUpDb</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
@@ -35,6 +35,9 @@
   <PropertyGroup>
     <ApplicationIcon>db.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.3.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <HintPath>..\packages\BouncyCastle.1.8.3.1\lib\BouncyCastle.Crypto.dll</HintPath>
@@ -51,8 +54,8 @@
     <Reference Include="K4os.Hash.xxHash, Version=1.0.6.0, Culture=neutral, PublicKeyToken=32cd54395057cec3, processorArchitecture=MSIL">
       <HintPath>..\packages\K4os.Hash.xxHash.1.0.6\lib\net46\K4os.Hash.xxHash.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=8.0.22.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.Data.8.0.22\lib\net452\MySql.Data.dll</HintPath>
+    <Reference Include="MySql.Data, Version=8.0.23.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="MySqlBackup, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MySqlBackup.NET.2.3.3.1\lib\net452\MySqlBackup.dll</HintPath>
@@ -99,16 +102,16 @@
   <ItemGroup>
     <Compile Include="DataBaseController.cs" />
     <Compile Include="DbConfig.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="AutoBKForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AutoBKForm.Designer.cs">
+      <DependentUpon>AutoBKForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="AutoBKForm.resx">
+      <DependentUpon>AutoBKForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

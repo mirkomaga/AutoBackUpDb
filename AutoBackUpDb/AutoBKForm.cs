@@ -15,9 +15,9 @@ using System.Threading;
 
 namespace AutoBackUpDb
 {
-    public partial class Form1 : Form
+    public partial class AutoBKForm : Form
     {        
-        public Form1()
+        public AutoBKForm()
         {
 
             InitializeComponent();
@@ -32,7 +32,7 @@ namespace AutoBackUpDb
                 DataBaseController dbc = new DataBaseController(db);
                 dbc.startTimeDelay();
 
-                Task.Factory.StartNew(dbc.startTimeDelay());
+                //Task.Factory.StartNew(dbc.startTimeDelay());
             }
 
             label1.Text = "Eseguito";
@@ -59,7 +59,8 @@ namespace AutoBackUpDb
 
             try
             {
-                string path = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "\\db.json";
+                //Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) +
+                string path = "C:\\Users\\db.json";
                 JArray data = JArray.Parse(@File.ReadAllText(path));
 
                 res = data.ToObject<IList<DbConfig>>();
