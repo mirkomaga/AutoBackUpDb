@@ -61,6 +61,7 @@ namespace AutoBackUpDb
                     {
                         cmd.Connection = conn;
                         conn.Open();
+                        mb.ExportInfo.AddCreateDatabase = true;
                         mb.ExportToFile(file);
                         conn.Close();
                     }
